@@ -1,13 +1,12 @@
 const choices = ["rock", "paper", "scissors"];
-
 let winners = [];
 let playerWins = 0;
 let computerWins = 0;
-let draws = 0;
 const playerWinsBanner = document.getElementById("playerWins-banner");
 const computerWinsBanner = document.getElementById("computerWins-banner");
 const restartBtnPlayer = document.getElementById("restart-btnPlayer");
 const restartBtnComputer = document.getElementById("restart-btnComputer");
+const popup = document.getElementById("popup");
 restartBtnPlayer.addEventListener("click", restartGame);
 restartBtnComputer.addEventListener("click", restartGame);
 
@@ -26,14 +25,12 @@ function playRound() {
   const playerSelection = button.value;
   const computerSelection = computerChoice();
   const winner = checkWinner(playerSelection, computerSelection);
-  winners.push(winner);
   confirmGameEnd();
 }
 
 function computerChoice() {
   return choices[Math.floor(Math.random() * choices.length)];
 }
-
 
 function checkWinner(choiceP, choiceC) {
   if (choiceP == choiceC) {
@@ -57,7 +54,6 @@ function checkWinner(choiceP, choiceC) {
       playerScore.classList.remove("changingScore");
     });
     playerScore.classList.add("changingScore");
-
   } else {
     const computerScore = document.getElementById("scoreboard-ComputerScore");
     computerScore.addEventListener("animationend", () => {
@@ -67,7 +63,7 @@ function checkWinner(choiceP, choiceC) {
     computerScore.classList.add("changingScore");
     computerWins = computerWins + 1;
   }
-  
+
   const computerButtons = document.querySelector(".choicesC .buttons");
   const computerSelection = computerButtons.querySelector(
     `[value="${choiceC}"]`
@@ -76,9 +72,7 @@ function checkWinner(choiceP, choiceC) {
     computerSelection.classList.remove("chosen");
   });
   computerSelection.classList.add("chosen");
-
 }
-let popup = document.getElementById("popup");
 
 function confirmGameEnd() {
   const overlay = document.getElementById("overlay");
@@ -87,7 +81,7 @@ function confirmGameEnd() {
     overlay.classList.add("active");
     popup.style.display = "flex";
     popup.classList.add("active");
-  
+
     playerWinsBanner.removeAttribute("hidden");
     restartBtnPlayer.removeAttribute("hidden");
     rockBtn.disabled = true;
@@ -108,9 +102,6 @@ function confirmGameEnd() {
   }
 }
 
-
-
-
 function resetVariables() {
   playerWins = 0;
   computerWins = 0;
@@ -124,9 +115,9 @@ function restartGame() {
   const computerScore = document.getElementById("scoreboard-ComputerScore");
   computerScore.innerHTML = computerWins;
 
-  document.getElementById("rock-btn").disabled = false;
-  document.getElementById("paper-btn").disabled = false;
-  document.getElementById("scissors-btn").disabled = false;
+  rockBtn.disabled = false;
+  paperBtn.disabled = false;
+  scissorsBtn.disabled = false;
 
   playerWinsBanner.setAttribute("hidden", "hidden");
   computerWinsBanner.setAttribute("hidden", "hidden");
