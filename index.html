@@ -37,12 +37,17 @@
           <p>Player</p>
           <div id="scoreboard-PlayerScore">0</div>
         </div>
-        <div style="display: none;" id="popup" class="popup-banner">
-          <div id="playerWins-banner" hidden>You Win!</div>
-          <button id="restart-btnPlayer" hidden>Try Again!</button>
-  
-          <div id="computerWins-banner" hidden>Computer Wins!</div>
-          <button id="restart-btnComputer" hidden>Try Again!</button>
+        <p id="draw" hidden>Draw!</p>
+
+        <div id="popup" class="popup-banner" style="display: none">
+          <div id="playerWins-banner" hidden>
+            You Win!
+            <button id="restart-btnPlayer" hidden>Try Again!</button>
+          </div>
+          <div id="computerWins-banner" hidden>
+            Computer Wins!
+            <button id="restart-btnComputer" hidden>Try Again!</button>
+          </div>
         </div>
 
         <div class="scoreboard-computer">
@@ -53,19 +58,18 @@
 
       <div class="choicesC">
         <div class="buttons">
-          <div id="computerChoiceRock">
+          <div id="computerChoiceRock" value="rock">
             <img src="assets/rock.png" height="100px" width="100px" />
           </div>
-          <div id="computerChoicePaper">
+          <div id="computerChoicePaper" value="paper">
             <img src="assets/paper.png" height="100px" width="100px" />
           </div>
-          <div id="computerChoiceScissors">
+          <div id="computerChoiceScissors" value="scissors">
             <img src="assets/scissors.png" height="100px" width="100px" />
           </div>
         </div>
       </div>
-
-  
+      <div id="overlay"></div>
     </div>
   </body>
   <script src="main.js"></script>

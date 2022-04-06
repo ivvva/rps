@@ -27,7 +27,7 @@ scissorsBtn.addEventListener("click", playRound);
 // }
 
 function playRound() {
-  const button = this
+  const button = this;
   const playerSelection = button.value;
   const computerSelection = computerChoice();
   const winner = checkWinner(playerSelection, computerSelection);
@@ -64,37 +64,75 @@ function computerChoice() {
 // }
 
 function checkWinner(choiceP, choiceC) {
-  console.log(choiceC)
-  console.log(choiceP)
   if (choiceP == choiceC) {
-    draws = draws + 1;
+    const draw = document.getElementById("draw");
+    draw.removeAttribute("hidden");
+    draw.addEventListener("animationend", () => {
+      draw.setAttribute("hidden", "hidden");
+      draw.classList.remove("drawAnimation");
+    });
+    draw.classList.add("drawAnimation");
   } else if (
     (choiceP == "rock" && choiceC == "scissors") ||
     (choiceP == "paper" && choiceC == "rock") ||
     (choiceP == "scissors" && choiceC == "paper")
   ) {
     playerWins = playerWins + 1;
+
+    const playerScore = document.getElementById("scoreboard-PlayerScore");
+    playerScore.addEventListener("animationend", () => {
+      playerScore.textContent = playerWins;
+      playerScore.classList.remove("changingScore");
+    });
+    playerScore.classList.add("changingScore");
+
+    // Add class with animation
+    // Change html element with new score
   } else {
+    const computerScore = document.getElementById("scoreboard-ComputerScore");
+    computerScore.addEventListener("animationend", () => {
+      computerScore.textContent = computerWins;
+      computerScore.classList.remove("changingScore");
+    });
+    computerScore.classList.add("changingScore");
     computerWins = computerWins + 1;
+    // Add class with animation
   }
   // let computerChoiceRock = document.getElementById("computerChoiceRock");
   // let computerChoicePaper = document.getElementById("computerChoicePaper");
   // let computerChoiceScissors = document.getElementById("computerChoiceScissors");
-  const choicesC = document.querySelectorAll("#computerChoiceRock", "#computerChoicePaper", "#computerChoiceScissors")
-  const playerScore = document.getElementById("scoreboard-PlayerScore");
-  playerScore.innerHTML = playerWins;
-  const computerScore = document.getElementById("scoreboard-ComputerScore");
-  computerScore.innerHTML = computerWins;
+  // const choicesC = document.querySelectorAll("#computerChoiceRock", "#computerChoicePaper", "#computerChoiceScissors")
 
- 
+  const computerButtons = document.querySelector(".choicesC .buttons");
+  const computerSelection = computerButtons.querySelector(
+    `[value="${choiceC}"]`
+  );
+  computerSelection.addEventListener("animationend", () => {
+    computerSelection.classList.remove("chosen");
+  });
+  computerSelection.classList.add("chosen");
+
+  // add class with animation
+
+  // Cleanup all animations
 }
+let popup = document.getElementById("popup");
 
 function confirmGameEnd() {
   let playerWinsBanner = document.getElementById("playerWins-banner");
   let computerWinsBanner = document.getElementById("computerWins-banner");
   let restartBtnPlayer = document.getElementById("restart-btnPlayer");
   let restartBtnComputer = document.getElementById("restart-btnComputer");
+  const overlay = document.getElementById("overlay");
+
+  // const popupActive = popup.classList.add("active");
   if (playerWins == 5) {
+    overlay.classList.add("active");
+    popup.style.display = "flex";
+    popup.classList.add("active");
+    // popup.addEventListener("animationstart", () => {
+    //   popup.style.display = null;
+    // });
     playerWinsBanner.removeAttribute("hidden");
     restartBtnPlayer.removeAttribute("hidden");
     rockBtn.disabled = true;
@@ -102,6 +140,12 @@ function confirmGameEnd() {
     scissorsBtn.disabled = true;
     resetVariables();
   } else if (computerWins == 5) {
+    overlay.classList.add("active");
+    popup.style.display = "flex";
+    popup.classList.add("active");
+    // popup.addEventListener("animationstart", () => {
+    //   popup.style.display = null;
+    // });
     computerWinsBanner.removeAttribute("hidden");
     restartBtnComputer.removeAttribute("hidden");
     rockBtn.disabled = true;
@@ -116,8 +160,19 @@ function confirmGameEnd() {
 //   alert(output);
 //   alert(getChampionOutput());
 // }
-document.getElementById("restart-btnPlayer").addEventListener("click", restartGame);
-document.getElementById("restart-btnComputer").addEventListener("click", restartGame);
+document
+  .getElementById("restart-btnPlayer")
+  .addEventListener("click", restartGame);
+document
+  .getElementById("restart-btnComputer")
+  .addEventListener("click", restartGame);
+
+// const popup = document.getElementById("popup");
+// const popupActive = popup.classList.add("active");
+
+// popupActive.onanimationstart = () => {
+//   popupActive.removeAttribute("style");
+// };
 
 function resetVariables() {
   playerWins = 0;
@@ -128,7 +183,8 @@ function resetVariables() {
 function restartGame() {
   let playerWinsBanner = document.getElementById("playerWins-banner");
   let computerWinsBanner = document.getElementById("computerWins-banner");
-  let restartBtn = document.getElementById("restart-btn");
+  let restartBtnPlayer = document.getElementById("restart-btnPlayer");
+  let restartBtnComputer = document.getElementById("restart-btnComputer");
   const playerScore = document.getElementById("scoreboard-PlayerScore");
   playerScore.innerHTML = playerWins;
   const computerScore = document.getElementById("scoreboard-ComputerScore");
@@ -140,5 +196,8 @@ function restartGame() {
 
   playerWinsBanner.setAttribute("hidden", "hidden");
   computerWinsBanner.setAttribute("hidden", "hidden");
-  restartBtn.setAttribute("hidden", "hidden");
+  restartBtnPlayer.setAttribute("hidden", "hidden");
+  restartBtnComputer.setAttribute("hidden", "hidden");
+  popup.style.display = "none";
+  overlay.classList.remove("active");
 }

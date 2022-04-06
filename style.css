@@ -1,5 +1,5 @@
 * {
-  background-color: #eeeeee;
+  background-color: #e8eaee;
   font-family: "Lexend Deca", sans-serif;
 }
 
@@ -13,6 +13,14 @@ h1 {
   display: flex;
   border-bottom: 1px solid black;
   text-shadow: 2px 2px black;
+}
+
+#draw {
+  color: #3e8e41;
+  font-size: 2rem;
+  font-weight: 900;
+  z-index: 5;
+  position: fixed;
 }
 
 .buttons {
@@ -33,7 +41,7 @@ h1 {
   transition: transform 330ms ease-out;
 }
 
-#rock-btn:hover, 
+#rock-btn:hover,
 #paper-btn:hover,
 #scissors-btn:hover {
   transform: scale(1.2);
@@ -46,7 +54,6 @@ h1 {
 #scissors-btn:disabled {
   opacity: 50%;
 }
-
 
 .scoreboard {
   justify-content: space-around;
@@ -61,6 +68,7 @@ h1 {
   font-weight: 600;
   font-size: 1.6rem;
   padding: 40px;
+  text-align: center;
 }
 
 .scoreboard-computer {
@@ -68,7 +76,7 @@ h1 {
   font-weight: 600;
   font-size: 1.6rem;
   padding: 40px;
-
+  text-align: center;
 }
 
 .choices {
@@ -77,46 +85,164 @@ h1 {
 
 .choicesC {
   opacity: 50%;
+  transition: transform 330ms ease-in-out;
+  animation-duration: 0.7s;
 }
 
 .popup-banner {
-  background-color: #eeeeee;
-  height: 300px;
-  width: 300px;
+  background-color: #b2d4ac;
+  height: 400px;
+  width: 400px;
   justify-content: space-around;
   align-items: center;
   display: flex;
-  border: 2px solid #909098;
+  border: none;
   border-radius: 15px;
-
+  border-radius: 15px;
+  box-shadow: 15px 10px #207567;
+  z-index: 10;
 }
-#computerWins-banner {
-  background-color: #eeeeee;
-  color: #909098;
+
+#computerWins-banner,
+#playerWins-banner {
+  background-color: #b2d4ac;
+  color: #207567;
   font-size: 1.6rem;
   font-weight: 700;
   align-items: center;
-  justify-content: space-between;;
+  justify-content: space-around;
+  margin: 70px;
 }
-
-
 
 #restart-btnPlayer,
 #restart-btnComputer {
-  background-color: #eeeeee;
-  color: #909098;
+  background-color: #8dc3a7;
+  color: #dfeae2;
   font-size: 1.3rem;
   font-weight: 700;
-  width: 300px;
+  width: 200px;
   padding-top: 190px;
   border-radius: 10px;
   padding: 10px;
+  margin-left: 30px;
+  margin-top: 50px;
   cursor: pointer;
   border: none;
-  border-top: 2px solid #909098;
+  border-radius: 15px;
+  box-shadow: 0 9px #6baf92;
   outline: none;
-
-
+}
+#overlay {
+  position: fixed;
+  opacity: 0;
+  transition: 200ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
 }
 
+#overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
 
+.button:hover {
+  background-color: #3e8e41;
+}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+@keyframes chosen {
+  0% {
+    transform: scale(1);
+    opacity: 70%;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 100%;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 70%;
+  }
+}
+
+.chosen {
+  position: relative;
+  animation-name: chosen;
+  animation-duration: 1.4s;
+  /* animation-delay: 0.5s; */
+}
+
+@keyframes popup-active {
+  0% {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.active {
+  position: relative;
+  animation-name: popup-active;
+  animation-duration: 1s;
+}
+
+@keyframes scoreChange {
+  0% {
+    color: #909098;
+    text-shadow: 0;
+  }
+  50% {
+    color: #3e8e41;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #96d38b,
+      0 0 40px #96d38b, 0 0 50px #96d38b, 0 0 60px #96d38b, 0 0 70px #96d38b;
+  }
+  100% {
+    color: #909098;
+    text-shadow: 0;
+  }
+}
+
+.changingScore {
+  position: relative;
+  animation-name: scoreChange;
+  animation-duration: 1s;
+}
+@keyframes drawAnimation {
+  0% {
+    transform: scale(0);
+    text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 20px #96d38b,
+    0 0 20px #96d38b, 0 0 40px #96d38b, 0 0 50px #96d38b, 0 0 60px #96d38b;
+    opacity: 40%;
+  }
+  50% {
+    transform: scale(2);
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #96d38b,
+      0 0 40px #96d38b, 0 0 50px #96d38b, 0 0 60px #96d38b, 0 0 70px #96d38b;
+    opacity: 100%;
+  }
+  100% {
+    transform: scale(0);
+    text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 20px #96d38b,
+    0 0 20px #96d38b, 0 0 40px #96d38b, 0 0 50px #96d38b, 0 0 60px #96d38b;
+    opacity: 20%;
+  }
+}
+
+.drawAnimation {
+  position: relative;
+  animation-name: drawAnimation;
+  animation-duration: 1.4s;
+}
