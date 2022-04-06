@@ -124,9 +124,9 @@ function restartGame() {
   const computerScore = document.getElementById("scoreboard-ComputerScore");
   computerScore.innerHTML = computerWins;
 
-  document.getElementById("rock-btn").disabled = false;
-  document.getElementById("paper-btn").disabled = false;
-  document.getElementById("scissors-btn").disabled = false;
+  rockBtn.disabled = false;
+  paperBtn.disabled = false;
+  scissorsBtn.disabled = false;
 
   playerWinsBanner.setAttribute("hidden", "hidden");
   computerWinsBanner.setAttribute("hidden", "hidden");
